@@ -1,15 +1,18 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import {
-  Plane, Search, Plus, Pencil, X, ArrowLeft,
+  Plane, Search, Plus, Pencil, X, ArrowLeft, ArrowRight,
   Clock, MapPin, CheckCircle2, Circle,
   ShieldCheck, ClipboardCheck, Save
 } from "lucide-react";
 import "./FlightSchedule.css";
+import {
+  GROUND_OPERATIONS, TASKS_KEY, getFlightProgress, groundOperationCount,
+  readGroundTasks
+} from "../flightStatus.js";
 
 const FLIGHTS_KEY = "aeroops-flights";
-const TASKS_KEY = "aeroops-ground-tasks";
 
 const inspectionZones = [
   { position: "nose", label: "Nose", checkIndex: 0 },
@@ -73,7 +76,7 @@ const demoFlights = [
 
 const operations = [
   {
-    id: "marshall",
+    id: GROUND_OPERATIONS.marshall,
     name: "Marshalling",
     photo: {
       file: "marshalling.jpg",
@@ -89,7 +92,7 @@ const operations = [
     ]
   },
   {
-    id: "chocks",
+    id: GROUND_OPERATIONS.chocks,
     name: "Chocks",
     icon: Circle,
     items: [
@@ -101,7 +104,7 @@ const operations = [
     ]
   },
   {
-    id: "inspection",
+    id: GROUND_OPERATIONS.inspection,
     name: "360° Inspection",
     icon: ClipboardCheck,
     items: [
@@ -115,7 +118,7 @@ const operations = [
     ]
   },
   {
-    id: "fireguard",
+    id: GROUND_OPERATIONS.fireguard,
     name: "Fire Guard",
     photo: {
       file: "fire-guard.jpg",
@@ -158,10 +161,7 @@ function FlightSchedule() {
     return Array.isArray(saved) ? saved : demoFlights;
   });
 
-  const [tasks, setTasks] = useState(() => {
-    const saved = readLocal(TASKS_KEY, {});
-    return Array.isArray(saved) ? {} : saved;
-  });
+  const [tasks, setTasks] = useState(readGroundTasks);
 
   const [selectedId, setSelectedId] = useState(null);
   const [activeOperation, setActiveOperation] = useState("marshall");
@@ -172,6 +172,7 @@ function FlightSchedule() {
   const [form, setForm] = useState(emptyFlight);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const checklistHeading = useRef(null);
 
   const requestedOperation = location.state?.operation;
 
@@ -195,9 +196,11 @@ function FlightSchedule() {
   }, [tasks]);
 
   const selectedFlight = flights.find(f => f.id === selectedId);
-  const selectedOperation = operations.find(
+  const operationIndex = operations.findIndex(
     op => op.id === activeOperation
   );
+  const selectedOperation = operations[operationIndex];
+  const nextOperation = operations[operationIndex + 1];
 
   const taskKey = selectedFlight
     ? `${selectedFlight.id}::${activeOperation}`
@@ -211,7 +214,12 @@ function FlightSchedule() {
   const totalItems = selectedOperation.items.length;
   const progress = Math.round(checkedCount / totalItems * 100);
 
-  const filteredFlights = flights.filter(f => {
+  const flightProgress = flights.map(flight => ({
+    flight,
+    ...getFlightProgress(flight, tasks)
+  }));
+
+  const filteredFlights = flightProgress.filter(({ flight: f, status }) => {
     const query = search.toLowerCase();
 
     const matchesSearch = [
@@ -219,19 +227,13 @@ function FlightSchedule() {
     ].some(value => String(value).toLowerCase().includes(query));
 
     return matchesSearch &&
-      (filter === "All Flights" || f.status === filter);
+      (filter === "All Flights" || status === filter);
   });
 
   function getRecord(flightId, operationId) {
     return tasks[`${flightId}::${operationId}`] || {
       checks: [], remarks: "", completed: false
     };
-  }
-
-  function getCompletedOperations(flightId) {
-    return operations.filter(op =>
-      getRecord(flightId, op.id).completed
-    ).length;
   }
 
   function openAdd() {
@@ -345,6 +347,16 @@ function FlightSchedule() {
     setMessage("Task completed in the demo.");
   }
 
+  function openNextOperation() {
+    setActiveOperation(nextOperation.id);
+    setMessage("");
+
+    requestAnimationFrame(() => {
+      checklistHeading.current?.focus({ preventScroll: true });
+      checklistHeading.current?.scrollIntoView({ block: "start" });
+    });
+  }
+
   function getStatus(flightId, opId) {
     const record = getRecord(flightId, opId);
     if (record.completed) return "Completed";
@@ -380,13 +392,13 @@ function FlightSchedule() {
             <div>
               <span>In Progress</span>
               <strong>
-                {flights.filter(f => f.status === "In Progress").length}
+                {flightProgress.filter(f => f.status === "In Progress").length}
               </strong>
             </div>
             <div>
               <span>Scheduled</span>
               <strong>
-                {flights.filter(f => f.status === "Scheduled").length}
+                {flightProgress.filter(f => f.status === "Scheduled").length}
               </strong>
             </div>
           </div>
@@ -447,7 +459,7 @@ function FlightSchedule() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredFlights.map(f => (
+                  {filteredFlights.map(({ flight: f, completedOperations, status }) => (
                     <tr key={f.id}>
                       <td className="flight-number">{f.id}</td>
                       <td>
@@ -459,11 +471,11 @@ function FlightSchedule() {
                       <td>{f.arrival}</td>
                       <td>{f.bay}</td>
                       <td>
-                        <strong>{getCompletedOperations(f.id)}/4</strong>
+                        <strong>{completedOperations}/{groundOperationCount}</strong>
                       </td>
                       <td>
-                        <span className={`flight-badge ${statusClass(f.status)}`}>
-                          {f.status}
+                        <span className={`flight-badge ${statusClass(status)}`}>
+                          {status}
                         </span>
                       </td>
                       <td>
@@ -594,7 +606,9 @@ function FlightSchedule() {
             <div className="flight-checklist-panel">
               <div className="flight-checklist-heading">
                 <div>
-                  <h2>{selectedOperation.name}</h2>
+                  <h2 ref={checklistHeading} tabIndex={-1}>
+                    {selectedOperation.name}
+                  </h2>
                   <p>Ground operations checklist</p>
                 </div>
                 <span className={`flight-badge ${
@@ -672,18 +686,15 @@ function FlightSchedule() {
                     : "Complete Task"}
                 </button>
 
-                {activeOperation === "chocks" &&
-                  currentTask.completed && (
-                    <button
-                      className="flight-action-primary"
-                      onClick={() => {
-                        setActiveOperation("inspection");
-                        setMessage("");
-                      }}
-                    >
-                      Next: 360° Inspection →
-                    </button>
-                  )}
+                {currentTask.completed && nextOperation && (
+                  <button
+                    type="button"
+                    className="flight-action-primary"
+                    onClick={openNextOperation}
+                  >
+                    Next: {nextOperation.name} <ArrowRight size={17} />
+                  </button>
+                )}
               </div>
             </div>
           </div>

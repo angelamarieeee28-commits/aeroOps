@@ -16,6 +16,7 @@ import {
   ShieldCheck
 } from "lucide-react";
 import "./Dashboard.css";
+import { getFlightProgress, readGroundTasks } from "../flightStatus.js";
 
 const defaultFlights = [
   {
@@ -110,8 +111,13 @@ function readArray(key, fallback = []) {
 }
 
 function getDashboardData() {
+  const tasks = readGroundTasks();
+
   return {
-    flights: readArray("aeroops-flights", defaultFlights),
+    flights: readArray("aeroops-flights", defaultFlights).map(flight => ({
+      ...flight,
+      status: getFlightProgress(flight, tasks).status
+    })),
     orders: readArray("aeroops-workorders", defaultOrders),
     parts: readArray("aeroops-parts", defaultParts),
     cycles: readArray("aeroops-flight-cycles", [])
