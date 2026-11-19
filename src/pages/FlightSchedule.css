@@ -785,6 +785,24 @@
   gap: 17px;
 }
 
+.flight-assignees {
+  min-width: 0;
+  margin: 22px 0 0;
+  padding: 14px;
+  border: 1px solid #dce4ef;
+  border-radius: 8px;
+}
+
+.flight-assign-staff {
+  margin-top: 10px;
+}
+
+.flight-assignees legend {
+  padding: 0 6px;
+  color: #102b4e;
+  font-weight: 700;
+}
+
 .flight-form-grid label {
   display: flex;
   flex-direction: column;

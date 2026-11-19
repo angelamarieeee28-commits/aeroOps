@@ -9,6 +9,7 @@ import {
 import "./WorkOrders.css";
 
 const STORAGE_KEY = "aeroops-workorders";
+const DEMO_COMPLETION_PASSWORD = "aeroOps2026";
 
 const categories = [
   "Operations",
@@ -323,20 +324,20 @@ function WorkOrders() {
 
     const tool = selectedOrder.tools.find(t => t.id === toolId);
 
-    if (!tool || tool.status !== "Pending") {
-      setMessage("Only pending tools can be removed.");
-      return;
-    }
+    if (!tool || tool.status === "Issued") return;
+
+    if (!window.confirm(`Delete ${tool.id} (${tool.name}) from this pick slip?`)) return;
 
     updateOrder(selectedOrder.id, {
       tools: selectedOrder.tools.filter(t => t.id !== toolId)
     });
 
-    setMessage("Pending tool removed.");
+    setMessage(`${tool.id} deleted from the pick slip.`);
   }
 
-  function completeOrder() {
-    if (!selectedOrder) return;
+  function completeOrder(event) {
+    event.preventDefault();
+    if (!selectedOrder || selectedOrder.status === "Completed") return;
 
     const total = templates[selectedOrder.category].length;
 
@@ -359,8 +360,22 @@ function WorkOrders() {
       }
     }
 
+    const completionForm = event.currentTarget;
+    const password = new FormData(completionForm).get("completionPassword");
+    completionForm.reset();
+
+    if (password !== DEMO_COMPLETION_PASSWORD) {
+      setMessage(password ? "Incorrect password." : "Enter the password to complete this work order.");
+      return;
+    }
+
     updateOrder(selectedOrder.id, { status: "Completed" });
-    setMessage("Work order marked Completed in demo records.");
+    setSelectedId(null);
+    setCategoryFilter(selectedOrder.category);
+    setSearch("");
+    setStatusFilter("All Status");
+    setMessage("");
+    requestAnimationFrame(() => window.scrollTo(0, 0));
   }
 
   function openAddForm() {
@@ -812,28 +827,18 @@ function WorkOrders() {
                           <td>
                             <div className="wo-tool-actions">
                               {tool.status === "Pending" && (
-                                <>
-                                  <button
-                                    className="wo-tool-issue"
-                                    disabled={
-                                      selectedOrder.status === "Completed" ||
-                                      !tool.name.trim()
-                                    }
-                                    onClick={() =>
-                                      changeToolStatus(tool.id, "Issued")
-                                    }
-                                  >
-                                    Issue
-                                  </button>
-
-                                  <button
-                                    className="wo-tool-delete"
-                                    onClick={() => removeTool(tool.id)}
-                                    aria-label={`Remove ${tool.id}`}
-                                  >
-                                    <Trash2 size={15} />
-                                  </button>
-                                </>
+                                <button
+                                  className="wo-tool-issue"
+                                  disabled={
+                                    selectedOrder.status === "Completed" ||
+                                    !tool.name.trim()
+                                  }
+                                  onClick={() =>
+                                    changeToolStatus(tool.id, "Issued")
+                                  }
+                                >
+                                  Issue
+                                </button>
                               )}
 
                               {tool.status === "Issued" && (
@@ -854,6 +859,18 @@ function WorkOrders() {
                                   <PackageCheck size={16} />
                                   Returned
                                 </span>
+                              )}
+
+                              {selectedOrder.status !== "Completed" && tool.status !== "Issued" && (
+                                <button
+                                  type="button"
+                                  className="wo-tool-delete"
+                                  onClick={() => removeTool(tool.id)}
+                                  aria-label={`Delete ${tool.id}`}
+                                >
+                                  <Trash2 size={15} />
+                                  Delete
+                                </button>
                               )}
                             </div>
                           </td>
@@ -999,8 +1016,20 @@ function WorkOrders() {
               </p>
             )}
 
-            <div className="wo-actions">
+            <form className="wo-actions" key={selectedOrder.id} onSubmit={completeOrder}>
+              {selectedOrder.status !== "Completed" && (
+                <label className="wo-completion-password">
+                  Password
+                  <input
+                    type="password"
+                    name="completionPassword"
+                    autoComplete="off"
+                    required
+                  />
+                </label>
+              )}
               <button
+                type="button"
                 className="wo-secondary"
                 onClick={() =>
                   setMessage("Changes saved in browser storage.")
@@ -1011,16 +1040,16 @@ function WorkOrders() {
               </button>
 
               <button
+                type="submit"
                 className="wo-primary"
                 disabled={selectedOrder.status === "Completed"}
-                onClick={completeOrder}
               >
                 <CheckCircle2 size={17} />
                 {selectedOrder.status === "Completed"
                   ? "Completed"
                   : "Complete Work Order"}
               </button>
-            </div>
+            </form>
           </div>
         </>
       )}

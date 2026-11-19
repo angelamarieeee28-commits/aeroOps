@@ -76,6 +76,23 @@ const demoFlights = [
 
 const operations = [
   {
+    id: GROUND_OPERATIONS.fireguard,
+    name: "Fire Guard",
+    photo: {
+      file: "fire-guard.jpg",
+      alt: "Fire extinguisher on the apron beside an aircraft"
+    },
+    icon: ShieldCheck,
+    items: [
+      "Assigned fire guard confirmed",
+      "Required firefighting equipment verified",
+      "Fire guard position confirmed",
+      "Area conditions monitored",
+      "Communication readiness confirmed",
+      "Fire guard task reported"
+    ]
+  },
+  {
     id: GROUND_OPERATIONS.marshall,
     name: "Marshalling",
     photo: {
@@ -116,29 +133,21 @@ const operations = [
       "Landing gear areas checked",
       "Findings documented"
     ]
-  },
-  {
-    id: GROUND_OPERATIONS.fireguard,
-    name: "Fire Guard",
-    photo: {
-      file: "fire-guard.jpg",
-      alt: "Fire extinguisher on the apron beside an aircraft"
-    },
-    icon: ShieldCheck,
-    items: [
-      "Assigned fire guard confirmed",
-      "Required firefighting equipment verified",
-      "Fire guard position confirmed",
-      "Area conditions monitored",
-      "Communication readiness confirmed",
-      "Fire guard task reported"
-    ]
   }
 ];
 
+// Used once to remove assignments seeded by earlier versions.
+const legacyDemoAssignees = {
+  "PR 204": { fireguard: "Mara Santos", marshall: "Luis Reyes", chocks: "Nico Cruz", inspection: "Ana Garcia" },
+  "5J 615": { fireguard: "Paolo Ramos", marshall: "Rina Mendoza", chocks: "Joel Bautista", inspection: "Lea Flores" },
+  "PR 186": { fireguard: "Mara Santos", marshall: "Luis Reyes", chocks: "Nico Cruz", inspection: "Ana Garcia" },
+  "5J 931": { fireguard: "Paolo Ramos", marshall: "Rina Mendoza", chocks: "Joel Bautista", inspection: "Lea Flores" }
+};
+
 const emptyFlight = {
   id: "", aircraft: "", registration: "", route: "",
-  departure: "", arrival: "", bay: "", status: "Scheduled"
+  departure: "", arrival: "", bay: "", status: "Scheduled",
+  assignees: {}, manualStaffAssignments: true
 };
 
 function readLocal(key, fallback) {
@@ -158,13 +167,33 @@ function FlightSchedule() {
 
   const [flights, setFlights] = useState(() => {
     const saved = readLocal(FLIGHTS_KEY, demoFlights);
-    return Array.isArray(saved) ? saved : demoFlights;
+    const loadedFlights = Array.isArray(saved) ? saved : demoFlights;
+
+    return loadedFlights.map(flight => {
+      const demo = demoFlights.find(entry =>
+        entry.id === flight.id && entry.registration === flight.registration
+      );
+      const legacyAssignees = demo && !flight.manualStaffAssignments
+        ? legacyDemoAssignees[demo.id]
+        : {};
+      const assignees = Object.fromEntries(
+        Object.entries(flight.assignees ?? {}).filter(
+          ([id, name]) => name !== legacyAssignees[id]
+        )
+      );
+
+      return {
+        ...flight,
+        assignees,
+        manualStaffAssignments: true
+      };
+    });
   });
 
   const [tasks, setTasks] = useState(readGroundTasks);
 
   const [selectedId, setSelectedId] = useState(null);
-  const [activeOperation, setActiveOperation] = useState("marshall");
+  const [activeOperation, setActiveOperation] = useState(operations[0].id);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All Flights");
   const [showForm, setShowForm] = useState(false);
@@ -172,7 +201,9 @@ function FlightSchedule() {
   const [form, setForm] = useState(emptyFlight);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const scheduleHeading = useRef(null);
   const checklistHeading = useRef(null);
+  const activeAssigneeInput = useRef(null);
 
   const requestedOperation = location.state?.operation;
 
@@ -250,6 +281,11 @@ function FlightSchedule() {
     setShowForm(true);
   }
 
+  function openStaffAssignment() {
+    openEdit(selectedFlight);
+    requestAnimationFrame(() => activeAssigneeInput.current?.focus());
+  }
+
   function saveFlight(e) {
     e.preventDefault();
 
@@ -261,6 +297,9 @@ function FlightSchedule() {
 
     cleaned.id = cleaned.id.toUpperCase();
     cleaned.registration = cleaned.registration.toUpperCase();
+    cleaned.assignees = Object.fromEntries(
+      operations.map(({ id }) => [id, (form.assignees[id] ?? "").trim()])
+    );
 
     const required = [
       "id", "aircraft", "registration", "route",
@@ -344,6 +383,24 @@ function FlightSchedule() {
     }
 
     updateTask({ completed: true });
+
+    const allTasksCompleted = operations.every(({ id }) =>
+      id === activeOperation || getRecord(selectedFlight.id, id).completed
+    );
+
+    if (allTasksCompleted) {
+      setSelectedId(null);
+      setSearch("");
+      setFilter("All Flights");
+      setMessage(`All ground tasks for ${selectedFlight.id} are complete.`);
+
+      requestAnimationFrame(() => {
+        scheduleHeading.current?.focus({ preventScroll: true });
+        window.scrollTo(0, 0);
+      });
+      return;
+    }
+
     setMessage("Task completed in the demo.");
   }
 
@@ -375,7 +432,7 @@ function FlightSchedule() {
           <div className="flight-heading">
             <div>
               <p className="flight-eyebrow">GROUND OPERATIONS</p>
-              <h1>Flight Schedule</h1>
+              <h1 ref={scheduleHeading} tabIndex={-1}>Flight Schedule</h1>
               <p>Manage aircraft schedules and ground tasks.</p>
             </div>
 
@@ -383,6 +440,10 @@ function FlightSchedule() {
               <Plus size={18} /> Add Flight
             </button>
           </div>
+
+          {message && (
+            <p className="flight-message" role="status">{message}</p>
+          )}
 
           <div className="flight-summary">
             <div>
@@ -472,6 +533,9 @@ function FlightSchedule() {
                       <td>{f.bay}</td>
                       <td>
                         <strong>{completedOperations}/{groundOperationCount}</strong>
+                        <small>
+                          {operations.filter(op => f.assignees[op.id]).length}/{groundOperationCount} assigned
+                        </small>
                       </td>
                       <td>
                         <span className={`flight-badge ${statusClass(status)}`}>
@@ -489,7 +553,7 @@ function FlightSchedule() {
                                   op.id === requestedOperation
                                 )
                                   ? requestedOperation
-                                  : "marshall"
+                                  : operations[0].id
                               );
                               setMessage("");
                             }}
@@ -610,6 +674,14 @@ function FlightSchedule() {
                     {selectedOperation.name}
                   </h2>
                   <p>Ground operations checklist</p>
+                  <p><strong>Assigned to</strong> {selectedFlight.assignees[activeOperation] || "Unassigned"}</p>
+                  <button
+                    type="button"
+                    className="flight-manage flight-assign-staff"
+                    onClick={openStaffAssignment}
+                  >
+                    Assign Staff
+                  </button>
                 </div>
                 <span className={`flight-badge ${
                   statusClass(getStatus(
@@ -790,6 +862,30 @@ function FlightSchedule() {
                   </select>
                 </label>
               </div>
+
+              <fieldset className="flight-assignees">
+                <legend>Ground Crew Assignments</legend>
+                <div className="flight-form-grid">
+                  {operations.map(({ id, name }) => (
+                    <label key={id}>
+                      {name}
+                      <input
+                        ref={id === activeOperation ? activeAssigneeInput : null}
+                        maxLength={80}
+                        placeholder="Crew member name"
+                        value={form.assignees[id] ?? ""}
+                        onChange={event => {
+                          const assignee = event.target.value;
+                          setForm(previous => ({
+                            ...previous,
+                            assignees: { ...previous.assignees, [id]: assignee }
+                          }));
+                        }}
+                      />
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
 
               {error && (
                 <p className="flight-form-error" role="alert">{error}</p>
