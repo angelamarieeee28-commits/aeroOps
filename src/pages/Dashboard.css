@@ -1,0 +1,576 @@
+
+/* =====================================
+   AEROOPS - DYNAMIC DASHBOARD
+===================================== */
+
+.aero-dashboard {
+  width: 100%;
+  min-width: 0;
+  color: #172b48;
+  font-family: Arial, sans-serif;
+}
+
+.aero-dashboard button {
+  font-family: inherit;
+}
+
+.aero-dashboard-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 23px;
+}
+
+.aero-dashboard-eyebrow {
+  margin: 0 0 7px;
+  color: #1768d9;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+}
+
+.aero-dashboard-heading h1 {
+  margin: 0 0 7px;
+  color: #102b4e;
+  font-size: 28px;
+}
+
+.aero-dashboard-heading p:not(.aero-dashboard-eyebrow) {
+  margin: 0;
+  color: #8290a5;
+  font-size: 13px;
+}
+
+.aero-dashboard-refresh {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 11px 15px;
+  border: 1px solid #d8e4f2;
+  border-radius: 8px;
+  color: #1768d9;
+  background: white;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.aero-dashboard-refresh:hover {
+  background: #edf4ff;
+}
+
+/* Welcome Banner */
+
+.aero-welcome-banner {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 225px;
+  margin-bottom: 28px;
+  padding: 30px 35px;
+  border-radius: 14px;
+  color: white;
+  background:
+    linear-gradient(90deg, rgba(8, 35, 72, 0.96), rgba(8, 35, 72, 0.64) 52%, rgba(8, 35, 72, 0.16)),
+    url("/dashboard-banner.jpg") right center / cover no-repeat #082348;
+}
+
+.aero-welcome-content {
+  position: relative;
+  z-index: 1;
+  max-width: 570px;
+}
+
+.aero-welcome-content > span {
+  display: block;
+  margin-bottom: 12px;
+  color: #b4d8ff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+}
+
+.aero-welcome-content h2 {
+  margin: 0 0 10px;
+  color: white;
+  font-size: 29px;
+  font-weight: 800;
+}
+
+.aero-welcome-content p {
+  margin: 0 0 20px;
+  max-width: 460px;
+  color: #d7e8fb;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.aero-welcome-content button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+  border: none;
+  border-radius: 7px;
+  background: white;
+  color: #1757a0;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.aero-welcome-content button:hover {
+  background: #e9f3ff;
+}
+
+
+/* Section headings */
+
+.aero-dashboard-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 25px 0 15px;
+}
+
+.aero-dashboard-section-heading h2 {
+  margin: 0 0 5px;
+  color: #142d50;
+  font-size: 17px;
+}
+
+.aero-dashboard-section-heading p {
+  margin: 0;
+  color: #8290a5;
+  font-size: 12px;
+}
+
+/* Module Cards */
+
+.aero-module-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 14px;
+}
+
+.aero-module-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  min-height: 190px;
+  padding: 20px;
+  border: 1px solid #e2e9f2;
+  border-radius: 11px;
+  background: white;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.aero-module-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(14, 45, 82, 0.09);
+}
+
+.aero-module-icon,
+.aero-stat-icon,
+.aero-quick-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 9px;
+}
+
+.aero-module-icon {
+  width: 44px;
+  height: 44px;
+  margin-bottom: 15px;
+}
+
+.aero-module-icon.blue,
+.aero-stat-icon.blue,
+.aero-quick-icon.blue {
+  background: #e8f1ff;
+  color: #1768d9;
+}
+
+.aero-module-icon.purple,
+.aero-stat-icon.purple {
+  background: #efecff;
+  color: #7460d4;
+}
+
+.aero-module-icon.orange,
+.aero-stat-icon.orange,
+.aero-quick-icon.orange {
+  background: #fff1df;
+  color: #cd8628;
+}
+
+.aero-module-icon.green,
+.aero-stat-icon.green,
+.aero-quick-icon.green {
+  background: #e2f6eb;
+  color: #168c57;
+}
+
+.aero-module-card > strong {
+  color: #193354;
+  font-size: 13px;
+}
+
+.aero-module-card > p {
+  margin: 9px 0 14px;
+  color: #8090a6;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.aero-module-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  color: #1768d9;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+/* Statistics */
+
+.aero-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 14px;
+  margin-bottom: 25px;
+}
+
+.aero-stat-card {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid #e2e9f2;
+  border-radius: 11px;
+  background: white;
+}
+
+.aero-stat-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.aero-stat-top > span {
+  color: #8190a4;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.aero-stat-icon {
+  width: 39px;
+  height: 39px;
+}
+
+.aero-stat-card > strong {
+  display: block;
+  margin-top: 14px;
+  color: #142d50;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.aero-stat-card > p {
+  margin: 7px 0 0;
+  color: #8090a6;
+  font-size: 11px;
+}
+
+/* Panels */
+
+.aero-dashboard-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.aero-dashboard-panel {
+  min-width: 0;
+  overflow: hidden;
+  background: white;
+  border: 1px solid #e2e9f2;
+  border-radius: 12px;
+}
+
+.aero-panel-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 20px;
+}
+
+.aero-panel-heading h2 {
+  margin: 0 0 6px;
+  color: #142d50;
+  font-size: 16px;
+}
+
+.aero-panel-heading p {
+  margin: 0;
+  color: #8290a5;
+  font-size: 11px;
+}
+
+.aero-panel-heading > button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  color: #1768d9;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Flight Table */
+
+.aero-dashboard-table-wrap {
+  overflow-x: auto;
+}
+
+.aero-dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.aero-dashboard-table thead {
+  background: #f7f9fc;
+}
+
+.aero-dashboard-table th {
+  padding: 13px;
+  color: #8190a4;
+  font-size: 10px;
+}
+
+.aero-dashboard-table td {
+  padding: 14px 13px;
+  border-top: 1px solid #edf1f6;
+  color: #344a66;
+  font-size: 11px;
+}
+
+.aero-dashboard-table td strong {
+  color: #1768d9;
+  font-size: 12px;
+}
+
+.aero-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 9px;
+  border-radius: 6px;
+  background: #edf1f6;
+  color: #65778f;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.aero-status.in-progress {
+  background: #e6efff;
+  color: #1768d9;
+}
+
+.aero-status.completed {
+  background: #e2f6eb;
+  color: #138755;
+}
+
+.aero-status.cancelled {
+  background: #ffe7eb;
+  color: #cf4353;
+}
+
+.aero-empty {
+  margin: 0;
+  padding: 25px;
+  color: #8290a5;
+  text-align: center;
+  font-size: 12px;
+}
+
+/* Quick Actions */
+
+.aero-quick-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 20px 20px;
+}
+
+.aero-quick-actions > button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e1e9f3;
+  border-radius: 9px;
+  background: white;
+  text-align: left;
+  cursor: pointer;
+}
+
+.aero-quick-actions > button:hover {
+  background: #f8fbff;
+}
+
+.aero-quick-icon {
+  width: 38px;
+  height: 38px;
+}
+
+.aero-quick-actions > button > span:nth-child(2) {
+  flex: 1;
+  min-width: 0;
+}
+
+.aero-quick-actions strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #193453;
+  font-size: 12px;
+}
+
+.aero-quick-actions small {
+  display: block;
+  color: #8491a5;
+  font-size: 10px;
+}
+
+.aero-quick-actions > button > svg {
+  flex-shrink: 0;
+  color: #1768d9;
+}
+
+/* Breakdown cards */
+
+.aero-bottom-panels {
+  grid-template-columns: repeat(2, minmax(0,1fr));
+}
+
+.aero-breakdown-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  padding: 0 20px 20px;
+}
+
+.aero-breakdown-grid > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 8px;
+  border: 1px solid #e8edf5;
+  border-radius: 9px;
+  background: #fafcff;
+}
+
+.aero-breakdown-grid strong {
+  color: #142d50;
+  font-size: 26px;
+}
+
+.aero-breakdown-grid span {
+  color: #8190a5;
+  font-size: 11px;
+  text-align: center;
+}
+
+/* Footer */
+
+.aero-dashboard-footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 9px 2px;
+  color: #8593a6;
+  font-size: 11px;
+}
+
+.aero-dashboard-footer span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+/* Responsive */
+
+@media (max-width: 1250px) {
+  .aero-module-grid,
+  .aero-stat-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
+}
+
+@media (max-width: 1050px) {
+  .aero-dashboard-columns,
+  .aero-bottom-panels {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .aero-dashboard-heading h1 {
+    font-size: 24px;
+  }
+
+  .aero-welcome-banner {
+    padding: 24px;
+    min-height: 200px;
+  }
+
+  .aero-welcome-content h2 {
+    font-size: 23px;
+  }
+
+  .aero-welcome-content {
+    max-width: 100%;
+  }
+
+  .aero-module-grid,
+  .aero-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .aero-breakdown-grid {
+    gap: 6px;
+    padding: 0 12px 12px;
+  }
+
+  .aero-breakdown-grid > div {
+    padding: 14px 4px;
+  }
+
+  .aero-panel-heading {
+    padding: 16px;
+  }
+
+  .aero-quick-actions {
+    padding: 0 16px 16px;
+  }
+}

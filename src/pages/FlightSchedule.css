@@ -1,0 +1,923 @@
+
+/* =========================================
+   AEROOPS - FLIGHT SCHEDULE MODULE
+   COMPLETE CSS REPLACEMENT
+========================================= */
+
+.flight-page {
+  width: 100%;
+  min-width: 0;
+  color: #172b48;
+  font-family: Arial, sans-serif;
+}
+
+/* =========================================
+   PAGE HEADING
+========================================= */
+
+.flight-heading,
+.flight-detail-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 23px;
+}
+
+.flight-eyebrow {
+  color: #206bd6;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  margin: 0 0 7px;
+}
+
+.flight-heading h1,
+.flight-detail-heading h1 {
+  font-size: 28px;
+  font-weight: 800;
+  color: #102b4e;
+  margin: 0 0 7px;
+}
+
+.flight-heading p:not(.flight-eyebrow),
+.flight-detail-heading p:not(.flight-eyebrow) {
+  color: #8290a5;
+  font-size: 13px;
+  margin: 0;
+}
+
+/* =========================================
+   MAIN BUTTONS
+========================================= */
+
+.flight-action-primary,
+.flight-complete {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 17px;
+  background: #1768d9;
+  border: 1px solid #1768d9;
+  color: white;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.flight-action-primary:hover,
+.flight-complete:hover {
+  background: #0e55b8;
+  border-color: #0e55b8;
+}
+
+.flight-save {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 17px;
+  background: #f1f6ff;
+  border: 1px solid #d5e3f5;
+  border-radius: 8px;
+  color: #2466be;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.flight-save:hover {
+  background: #e1edff;
+}
+
+/* =========================================
+   FLIGHT SUMMARY CARDS
+========================================= */
+
+.flight-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 17px;
+  margin-bottom: 23px;
+}
+
+.flight-summary > div {
+  background: white;
+  border: 1px solid #e2e9f2;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 2px 8px rgba(15, 40, 75, 0.02);
+}
+
+.flight-summary span {
+  display: block;
+  font-size: 12px;
+  color: #8290a3;
+  font-weight: 600;
+}
+
+.flight-summary strong {
+  display: block;
+  margin-top: 10px;
+  font-size: 30px;
+  font-weight: 800;
+  color: #142e52;
+}
+
+/* =========================================
+   FLIGHT SCHEDULE PANEL
+========================================= */
+
+.flight-panel {
+  background: white;
+  border: 1px solid #e3eaf2;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.flight-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 18px;
+  padding: 22px;
+}
+
+.flight-panel-header h2 {
+  font-size: 17px;
+  font-weight: 800;
+  margin: 0 0 6px;
+  color: #172e4e;
+}
+
+.flight-panel-header p {
+  font-size: 12px;
+  color: #8190a5;
+  margin: 0;
+}
+
+/* =========================================
+   SEARCH AND FILTER
+========================================= */
+
+.flight-filters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 11px;
+}
+
+.flight-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px;
+  border: 1px solid #dfe6ef;
+  border-radius: 8px;
+  color: #8391a5;
+  background: white;
+}
+
+.flight-search input {
+  min-width: 180px;
+  padding: 12px 0;
+  border: none;
+  background: transparent;
+  outline: none;
+  color: #172b48;
+  font-size: 12px;
+  font-family: inherit;
+}
+
+.flight-search:focus-within {
+  border-color: #1768d9;
+}
+
+.flight-filters select {
+  padding: 12px;
+  border: 1px solid #dfe6ef;
+  border-radius: 8px;
+  background: white;
+  color: #425773;
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* =========================================
+   FLIGHT TABLE
+========================================= */
+
+.flight-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.flight-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.flight-table thead {
+  background: #f7f9fc;
+}
+
+.flight-table th {
+  padding: 16px 14px;
+  color: #7e8da3;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.flight-table td {
+  padding: 16px 14px;
+  border-top: 1px solid #edf1f6;
+  color: #263a56;
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+.flight-table tbody tr:hover {
+  background: #fafcff;
+}
+
+.flight-table td strong {
+  color: #152e50;
+}
+
+.flight-table td small {
+  display: block;
+  color: #8b99aa;
+  font-size: 11px;
+  margin-top: 5px;
+}
+
+.flight-number {
+  font-weight: 800;
+  color: #1764c8 !important;
+  font-size: 13px !important;
+}
+
+/* =========================================
+   STATUS BADGES
+========================================= */
+
+.flight-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 11px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.flight-badge.in-progress {
+  background: #e7f0ff;
+  color: #1768d9;
+}
+
+.flight-badge.scheduled {
+  background: #edf1f6;
+  color: #66788f;
+}
+
+.flight-badge.completed {
+  background: #e2f6eb;
+  color: #168a58;
+}
+
+/* =========================================
+   TABLE ACTION BUTTONS
+========================================= */
+
+.flight-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.flight-manage {
+  padding: 9px 13px;
+  background: #edf4ff;
+  border: 1px solid #cbdff9;
+  border-radius: 7px;
+  color: #1768d9;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.flight-manage:hover {
+  background: #dceaff;
+}
+
+.flight-edit-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  padding: 8px;
+  border: 1px solid #d6e2f0;
+  border-radius: 7px;
+  background: white;
+  color: #1768d9;
+  cursor: pointer;
+}
+
+.flight-edit-button:hover {
+  background: #edf4ff;
+}
+
+.flight-empty {
+  text-align: center;
+  padding: 28px;
+  color: #8391a5;
+  font-size: 13px;
+}
+
+/* =========================================
+   FLIGHT DETAILS PAGE
+========================================= */
+
+.flight-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 0;
+  margin-bottom: 23px;
+  background: transparent;
+  border: none;
+  color: #1768d9;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.flight-detail-info {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 15px;
+  margin-bottom: 24px;
+}
+
+.flight-detail-info > div {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  background: white;
+  border: 1px solid #e3eaf2;
+  border-radius: 11px;
+  padding: 19px;
+  min-width: 0;
+}
+
+.flight-detail-info svg {
+  color: #1768d9;
+}
+
+.flight-detail-info span {
+  color: #8795a8;
+  font-size: 12px;
+}
+
+.flight-detail-info strong {
+  color: #162f50;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   OPERATION TABS
+========================================= */
+
+.flight-operation-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.flight-operation-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 13px 18px;
+  background: white;
+  border: 1px solid #e0e8f2;
+  border-radius: 8px;
+  color: #66788e;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.flight-operation-tab:hover {
+  background: #edf5ff;
+  color: #1768d9;
+}
+
+.flight-operation-tab.selected {
+  background: #1768d9;
+  border-color: #1768d9;
+  color: white;
+}
+
+/* =========================================
+   CHECKLIST PANEL
+========================================= */
+
+.flight-operation-with-visual {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 18px;
+}
+
+.flight-operation-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.flight-inspection-diagram {
+  margin: 0;
+  padding: clamp(12px, 2vw, 24px);
+  background: #f8fbff;
+  border: 1px solid #e3eaf2;
+  border-radius: 12px;
+}
+
+.flight-inspection-diagram figcaption {
+  color: #152d4c;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.flight-inspection-zones {
+  position: relative;
+  display: grid;
+  grid-template: "nose nose nose" 42px
+                 "left aircraft right" minmax(155px, 1fr)
+                 "tail tail tail" 42px / auto minmax(0, 1fr) auto;
+  align-items: center;
+  justify-items: center;
+  min-height: 275px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.flight-inspection-zones::before,
+.flight-inspection-zones::after {
+  content: "";
+  grid-area: aircraft;
+  width: 100%;
+  max-width: 200px;
+  pointer-events: none;
+}
+
+.flight-inspection-zones::before {
+  aspect-ratio: 1;
+  border: 2px dashed #78aaf2;
+  border-radius: 50%;
+}
+
+.flight-inspection-zones::after {
+  aspect-ratio: 5 / 6;
+  background: linear-gradient(90deg, #456586 42%, #c7d9eb 50%, #456586 58%);
+  clip-path: polygon(
+    50% 0%, 53% 3%, 55% 12%, 55% 36%, 98% 64%, 98% 71%, 55% 55%,
+    54% 82%, 69% 94%, 69% 98%, 52% 93%, 50% 100%, 48% 93%, 31% 98%,
+    31% 94%, 46% 82%, 45% 55%, 2% 71%, 2% 64%, 45% 36%, 45% 12%, 47% 3%
+  );
+}
+
+.flight-inspection-zone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0 3px;
+  color: #152d4c;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.flight-inspection-zone svg {
+  flex-shrink: 0;
+  color: #64788e;
+}
+
+.flight-inspection-zone .flight-inspection-checked {
+  color: #138052;
+}
+
+.flight-inspection-zone-nose {
+  grid-area: nose;
+}
+
+.flight-inspection-zone-left {
+  grid-area: left;
+}
+
+.flight-inspection-zone-right {
+  grid-area: right;
+}
+
+.flight-inspection-zone-tail {
+  grid-area: tail;
+}
+
+.flight-checklist-panel {
+  background: white;
+  border: 1px solid #e3eaf2;
+  border-radius: 12px;
+  padding: 25px;
+}
+
+.flight-checklist-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.flight-checklist-heading h2 {
+  font-size: 19px;
+  margin: 0 0 6px;
+  color: #152d4c;
+}
+
+.flight-checklist-heading p {
+  color: #8391a5;
+  font-size: 12px;
+  margin: 0;
+}
+
+/* =========================================
+   CHECKLIST PROGRESS
+========================================= */
+
+.flight-progress-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: #53657e;
+}
+
+.flight-progress-heading strong {
+  color: #1768d9;
+}
+
+.flight-progress-bar {
+  width: 100%;
+  height: 9px;
+  background: #e9eef6;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.flight-progress-bar > div {
+  height: 100%;
+  background: #2479e6;
+  border-radius: 20px;
+  transition: width 0.2s ease;
+}
+
+/* =========================================
+   CHECKLIST ITEMS
+========================================= */
+
+.flight-checklist {
+  border: 1px solid #e7edf5;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.flight-check-item {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 17px;
+  border-bottom: 1px solid #e7edf5;
+  font-size: 13px;
+  color: #243a57;
+  cursor: pointer;
+}
+
+.flight-check-item:last-child {
+  border-bottom: none;
+}
+
+.flight-check-item:hover {
+  background: #f8fbff;
+}
+
+.flight-check-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  accent-color: #1768d9;
+  cursor: pointer;
+}
+
+.flight-check-item span {
+  flex: 1;
+}
+
+/* =========================================
+   REMARKS
+========================================= */
+
+.flight-remarks {
+  margin-top: 24px;
+}
+
+.flight-remarks label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #344b69;
+}
+
+.flight-remarks textarea {
+  display: block;
+  width: 100%;
+  min-height: 110px;
+  padding: 14px;
+  border: 1px solid #dce5ef;
+  border-radius: 8px;
+  background: white;
+  color: #172b48;
+  font-size: 13px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.flight-remarks textarea:focus {
+  outline: none;
+  border-color: #1768d9;
+  box-shadow: 0 0 0 3px rgba(23, 104, 217, 0.08);
+}
+
+.flight-message {
+  margin-top: 16px;
+  font-size: 12px;
+  color: #1768d9;
+  font-weight: 700;
+}
+
+.flight-checklist-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 11px;
+  margin-top: 23px;
+}
+
+.flight-demo-disclaimer {
+  margin-top: 18px;
+  color: #8290a5;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+/* =========================================
+   ADD / EDIT FLIGHT MODAL
+========================================= */
+
+.flight-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(7, 22, 45, 0.68);
+}
+
+.flight-modal {
+  width: 100%;
+  max-width: 620px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.flight-modal-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.flight-modal-heading h2 {
+  color: #102b4e;
+  margin: 0 0 7px;
+  font-size: 23px;
+  font-weight: 800;
+}
+
+.flight-modal-heading p {
+  margin: 0;
+  color: #8391a5;
+  font-size: 12px;
+}
+
+.flight-modal-close {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  background: #f2f5f9;
+  color: #53657e;
+  cursor: pointer;
+}
+
+.flight-modal-close:hover {
+  background: #e5ebf3;
+}
+
+/* =========================================
+   ADD / EDIT FORM
+========================================= */
+
+.flight-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 17px;
+}
+
+.flight-form-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: #405571;
+}
+
+.flight-form-grid input,
+.flight-form-grid select {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #dce4ef;
+  border-radius: 8px;
+  background: #fff;
+  color: #172b48;
+  font-size: 13px;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.flight-form-grid input:focus,
+.flight-form-grid select:focus {
+  outline: none;
+  border-color: #1768d9;
+  box-shadow: 0 0 0 3px rgba(23, 104, 217, 0.1);
+}
+
+.flight-form-error {
+  margin-top: 15px;
+  color: #d34250;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.flight-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 11px;
+  margin-top: 27px;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+
+@media (max-width: 1100px) {
+  .flight-detail-info {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  .flight-operation-with-visual {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .flight-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .flight-heading,
+  .flight-detail-heading {
+    align-items: flex-start;
+  }
+
+  .flight-panel-header {
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 600px) {
+  .flight-summary,
+  .flight-detail-info,
+  .flight-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .flight-heading,
+  .flight-detail-heading,
+  .flight-checklist-heading {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .flight-heading h1,
+  .flight-detail-heading h1 {
+    font-size: 24px;
+  }
+
+  .flight-panel-header,
+  .flight-checklist-panel {
+    padding: 16px;
+  }
+
+  .flight-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .flight-search,
+  .flight-search input,
+  .flight-filters select {
+    width: 100%;
+  }
+
+  .flight-operation-tab {
+    flex: 1;
+  }
+
+  .flight-modal {
+    padding: 20px;
+  }
+
+  .flight-modal-actions {
+    flex-direction: column;
+  }
+
+  .flight-modal-actions button {
+    width: 100%;
+  }
+
+  .flight-checklist-actions {
+    flex-direction: column;
+  }
+
+  .flight-checklist-actions button {
+    width: 100%;
+  }
+}

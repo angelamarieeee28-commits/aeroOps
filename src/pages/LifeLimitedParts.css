@@ -1,0 +1,748 @@
+
+/* ==========================================
+   AEROOPS - LIFE-LIMITED PARTS
+   COMPLETE CSS REPLACEMENT
+========================================== */
+
+.llp-page {
+  width: 100%;
+  min-width: 0;
+  color: #172b48;
+  font-family: Arial, sans-serif;
+}
+
+/* ==========================================
+   PAGE HEADING
+========================================== */
+
+.llp-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.llp-eyebrow {
+  margin: 0 0 8px;
+  color: #1768d9;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+}
+
+.llp-heading h1 {
+  margin: 0 0 8px;
+  font-size: 28px;
+  font-weight: 800;
+  color: #102b4e;
+}
+
+.llp-heading p:not(.llp-eyebrow) {
+  margin: 0;
+  color: #8190a5;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.llp-heading-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.llp-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 42px;
+  padding: 11px 17px;
+  background: #1768d9;
+  color: white;
+  border: 1px solid #1768d9;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.llp-primary:hover {
+  background: #1055b6;
+  border-color: #1055b6;
+}
+
+.llp-secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 42px;
+  padding: 11px 16px;
+  background: #eef4fd;
+  color: #1768d9;
+  border: 1px solid #d3e1f5;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.llp-secondary-button:hover {
+  background: #dceafe;
+}
+
+/* ==========================================
+   SUMMARY CARDS
+========================================== */
+
+.llp-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.llp-stat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+  padding: 22px 18px;
+  background: white;
+  border: 1px solid #e2e9f2;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(15, 40, 75, 0.02);
+}
+
+.llp-stat span {
+  display: block;
+  margin-bottom: 10px;
+  color: #8290a3;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.llp-stat strong {
+  display: block;
+  color: #142e52;
+  font-size: 29px;
+  font-weight: 800;
+}
+
+.llp-stat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 11px;
+}
+
+.llp-stat-icon.blue {
+  background: #eaf2ff;
+  color: #1768d9;
+}
+
+.llp-stat-icon.green {
+  background: #e3f7ec;
+  color: #17915a;
+}
+
+.llp-stat-icon.orange {
+  background: #fff1df;
+  color: #dc8a23;
+}
+
+.llp-stat-icon.red {
+  background: #ffe9eb;
+  color: #d54e5a;
+}
+
+/* ==========================================
+   COMPONENT REGISTER PANEL
+========================================== */
+
+.llp-panel {
+  width: 100%;
+  min-width: 0;
+  background: #ffffff;
+  border: 1px solid #e2e9f2;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.llp-panel-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 22px 22px 10px;
+}
+
+.llp-panel-heading h2 {
+  margin: 0 0 7px;
+  color: #172e4e;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.llp-panel-heading p {
+  margin: 0;
+  color: #8290a5;
+  font-size: 12px;
+}
+
+/* ==========================================
+   SEARCH AND FILTER
+========================================== */
+
+.llp-filters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 16px 22px 21px;
+}
+
+.llp-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 260px;
+  flex: 1;
+  padding: 0 13px;
+  background: white;
+  color: #8290a5;
+  border: 1px solid #dfe6ef;
+  border-radius: 8px;
+}
+
+.llp-search input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: 42px;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #172b48;
+  font-family: inherit;
+  font-size: 12px;
+}
+
+.llp-search:focus-within {
+  border-color: #1768d9;
+}
+
+.llp-filters select {
+  min-width: 155px;
+  height: 43px;
+  padding: 0 13px;
+  background: #ffffff;
+  color: #405571;
+  border: 1px solid #dfe6ef;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* ==========================================
+   COMPONENT TABLE
+========================================== */
+
+.llp-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.llp-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.llp-table thead {
+  background: #f7f9fc;
+}
+
+.llp-table th {
+  padding: 16px 14px;
+  color: #7e8da3;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.llp-table td {
+  padding: 17px 14px;
+  border-top: 1px solid #edf1f6;
+  color: #263a56;
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+.llp-table tbody tr:hover {
+  background: #fafcff;
+}
+
+.llp-table td strong {
+  display: block;
+  color: #152e50;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.llp-table td small {
+  display: block;
+  margin-top: 6px;
+  color: #8b99aa;
+  font-size: 11px;
+}
+
+.llp-remaining {
+  color: #1768d9 !important;
+  font-weight: 800;
+}
+
+.llp-empty {
+  padding: 28px;
+  margin: 0;
+  text-align: center;
+  color: #8290a5;
+  font-size: 13px;
+}
+
+/* ==========================================
+   STATUS BADGES
+========================================== */
+
+.llp-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 11px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.llp-badge.normal {
+  background: #e3f7ec;
+  color: #168958;
+}
+
+.llp-badge.near-limit {
+  background: #fff1df;
+  color: #bd781b;
+}
+
+.llp-badge.critical {
+  background: #ffe9ec;
+  color: #d34755;
+}
+
+/* ==========================================
+   UTILIZATION PROGRESS
+========================================== */
+
+.llp-usage {
+  min-width: 115px;
+}
+
+.llp-usage span {
+  display: block;
+  margin-bottom: 7px;
+  color: #405571;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.llp-progress {
+  width: 100%;
+  height: 8px;
+  background: #e9eef6;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.llp-progress > div {
+  height: 100%;
+  border-radius: 20px;
+  transition: width 0.2s ease;
+}
+
+.llp-progress > div.normal {
+  background: #169a62;
+}
+
+.llp-progress > div.near-limit {
+  background: #e7a12e;
+}
+
+.llp-progress > div.critical {
+  background: #e35360;
+}
+
+/* ==========================================
+   TABLE ACTION BUTTONS
+========================================== */
+
+.llp-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.llp-open {
+  padding: 10px 13px;
+  color: #1768d9;
+  background: #edf4ff;
+  border: 1px solid #cbdff9;
+  border-radius: 7px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.llp-open:hover {
+  background: #dceaff;
+}
+
+.llp-edit-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: white;
+  color: #1768d9;
+  border: 1px solid #d6e2f0;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.llp-edit-button:hover {
+  background: #edf4ff;
+}
+
+/* ==========================================
+   COMPONENT DETAILS
+========================================== */
+
+.llp-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 0;
+  margin-bottom: 24px;
+  background: transparent;
+  border: none;
+  color: #1768d9;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.llp-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.llp-detail-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;
+  padding: 22px;
+  background: #ffffff;
+  border: 1px solid #e2e9f2;
+  border-radius: 11px;
+}
+
+.llp-detail-card svg {
+  color: #1768d9;
+}
+
+.llp-detail-card span {
+  color: #8290a5;
+  font-size: 12px;
+}
+
+.llp-detail-card strong {
+  color: #152e50;
+  font-size: 17px;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+/* ==========================================
+   COMPONENT LIFE UTILIZATION DETAILS
+========================================== */
+
+.llp-detail-panel {
+  padding: 25px;
+}
+
+.llp-detail-panel h2 {
+  margin: 0 0 8px;
+  color: #152e50;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.llp-detail-panel > p {
+  margin: 0;
+  color: #8290a5;
+  font-size: 12px;
+}
+
+.llp-large-value {
+  margin: 27px 0 16px;
+  color: #1768d9;
+  font-size: 38px;
+  font-weight: 800;
+}
+
+.llp-progress.large {
+  height: 13px;
+}
+
+.llp-life-labels {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 13px;
+  color: #65778f;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.llp-detail-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 28px;
+}
+
+/* ==========================================
+   ADD / EDIT COMPONENT MODAL
+========================================== */
+
+.llp-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: rgba(7, 22, 45, 0.68);
+}
+
+.llp-modal {
+  width: 100%;
+  max-width: 620px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 28px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.llp-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.llp-modal-header h2 {
+  margin: 0 0 7px;
+  color: #102b4e;
+  font-size: 23px;
+  font-weight: 800;
+}
+
+.llp-modal-header p {
+  margin: 0;
+  color: #8391a5;
+  font-size: 12px;
+}
+
+.llp-modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  background: #f2f5f9;
+  color: #53657e;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.llp-modal-close:hover {
+  background: #e5ebf3;
+}
+
+/* ==========================================
+   ADD / EDIT COMPONENT FORM
+========================================== */
+
+.llp-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 17px;
+}
+
+.llp-form-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  color: #405571;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.llp-form-grid input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: 44px;
+  padding: 10px 12px;
+  background: #ffffff;
+  color: #172b48;
+  border: 1px solid #dce4ef;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.llp-form-grid input:focus {
+  outline: none;
+  border-color: #1768d9;
+  box-shadow: 0 0 0 3px rgba(23, 104, 217, 0.1);
+}
+
+.llp-form-error {
+  margin-top: 15px;
+  color: #d34250;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.llp-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 11px;
+  margin-top: 27px;
+}
+
+/* ==========================================
+   RESPONSIVE LAYOUT
+========================================== */
+
+@media (max-width: 1200px) {
+  .llp-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .llp-detail-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  .llp-heading {
+    align-items: flex-start;
+  }
+
+  .llp-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .llp-search {
+    min-width: 0;
+  }
+
+  .llp-filters select {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .llp-heading h1 {
+    font-size: 24px;
+  }
+
+  .llp-stats,
+  .llp-detail-grid,
+  .llp-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .llp-heading-actions {
+    width: 100%;
+  }
+
+  .llp-heading-actions button {
+    flex: 1;
+  }
+
+  .llp-panel-heading,
+  .llp-detail-panel {
+    padding: 17px;
+  }
+
+  .llp-filters {
+    padding: 12px 17px 17px;
+  }
+
+  .llp-modal {
+    padding: 20px;
+  }
+
+  .llp-modal-actions {
+    flex-direction: column;
+  }
+
+  .llp-modal-actions button {
+    width: 100%;
+  }
+
+  .llp-detail-actions {
+    justify-content: stretch;
+  }
+
+  .llp-detail-actions button {
+    width: 100%;
+  }
+}
